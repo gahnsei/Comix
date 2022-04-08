@@ -1,6 +1,6 @@
 # Idea
 
-Users will be given the opportunity to browse marvels characters and comics. Users will also have the opportunity to navigate to Amazon's website in search of each comic. If the user deicdes to, they will be given an opportunity to create an account and save their favorite comics and characters to the Comix database where they can be accessed at a later time.
+Users will be given the opportunity to browse Marvel's characters and comics. Users will also have the opportunity to navigate to Amazon's website in search of each comic. If the user decides to, they will be given an opportunity to create an account and save their favorite comics and characters to the Comix database where they can be accessed at a later time.
 
 ## MVP
 
