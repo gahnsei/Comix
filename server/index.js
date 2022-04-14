@@ -9,13 +9,22 @@ app.use(cors());
 
 // Endpoints
 
-app.get(`/characters/search`, ctrl.searchCharacters);
-app.get(`/comics/search`, ctrl.searchComics);
 app.get(`/characters`, ctrl.getCharacter);
+app.get(`/characters/relations`, ctrl.getCharacterComics);
+app.get(`/characters/search`, ctrl.searchCharacters);
 app.get(`/comics`, ctrl.getComics);
-app.get(`/characters/comics`, ctrl.getCharacterComics);
-app.get(`/signUp`, ctrl.addUser);
+app.get(`/comics/relations`, ctrl.getComicCharacters);
+app.get(`/comics/search`, ctrl.searchComics);
+app.get(`/user/characters`, ctrl.getUserFavCharacter);
+app.get(`/user/comics`, ctrl.getUserFavComic);
 app.get(`/login`, ctrl.getUser);
+
+app.post(`/user/characters`, ctrl.addFavCharacter);
+app.post(`/user/comics`, ctrl.addFavComic);
+app.post(`/signUp`, ctrl.addUser);
+
+app.delete(`/user/characters`, ctrl.removeFavCharacter);
+app.delete(`/user/comics`, ctrl.removeFavComic);
 
 const { SERVER_PORT } = process.env;
 

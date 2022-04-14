@@ -27,11 +27,19 @@ function Header() {
           </div>
         </NavLink>
         {windowWidth <= 576 ? (
-          <i
-            id="nav-hamburger"
-            className="fa-solid fa-bars primary-color-text"
-            onClick={toggleDrawer}
-          ></i>
+          openNav ? (
+            <i
+              id="nav-hamburger"
+              className="fa-solid fa-xmark primary-color-text"
+              onClick={toggleDrawer}
+            ></i>
+          ) : (
+            <i
+              id="nav-hamburger"
+              className="fa-solid fa-bars primary-color-text"
+              onClick={toggleDrawer}
+            ></i>
+          )
         ) : (
           <>
             <ol>
@@ -46,11 +54,19 @@ function Header() {
               </li>
             </ol>
             {windowWidth <= 768 ? (
-              <i
-                id="nav-hamburger"
-                className="fa-solid fa-bars primary-color-text"
-                onClick={toggleDrawer}
-              ></i>
+              openNav ? (
+                <i
+                  id="nav-hamburger"
+                  className="fa-solid fa-xmark primary-color-text"
+                  onClick={toggleDrawer}
+                ></i>
+              ) : (
+                <i
+                  id="nav-hamburger"
+                  className="fa-solid fa-bars primary-color-text"
+                  onClick={toggleDrawer}
+                ></i>
+              )
             ) : (
               <SearchBox />
             )}

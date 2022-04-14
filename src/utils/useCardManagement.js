@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 
 const useCardManagement = (type) => {
   const [mouseEvent, setMouseEvent] = useState({
-    click: false,
     hover: false,
     id: ``
   });
@@ -15,7 +14,6 @@ const useCardManagement = (type) => {
 
   const resetEvent = () =>
     setMouseEvent({
-      click: false,
       hover: false,
       id: ``
     });
@@ -25,15 +23,7 @@ const useCardManagement = (type) => {
   };
 
   const cardClick = (id) => {
-    if (type === `characters`) {
-      nameClick(id);
-    } else {
-      setMouseEvent({
-        click: true,
-        hover: false,
-        id
-      });
-    }
+    nameClick(id);
   };
 
   const mouseEventHandler = {

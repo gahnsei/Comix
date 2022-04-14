@@ -96,23 +96,51 @@ const getCharacterComics = (req, res) => {
     .catch((err) => res.status(400).send(err));
 };
 
-const addUser = (req, res) => {
-  let { firstName, lastName, email, password } = req.query;
+const getComicCharacters = (req, res) => {
+  const { limit, orderBy, id } = req.query;
+
+  sequelize
+    .query(
+      `
+        SELECT * FROM Comic_characters cc
+        JOIN Characters c
+        ON cc.character_id = c.id
+        ${id ? `WHERE cc.comic_id = ${+id}` : ``}
+        ${orderBy ? `ORDER BY ${orderBy}` : ``}
+        ${limit ? `LIMIT ${limit}` : ``};`
+    )
+    .then((dbRes) => res.status(200).send(dbRes[0]))
+    .catch((err) => res.status(400).send(err));
+};
+
+const addUser = async (req, res) => {
+  let { firstName, lastName, email, password } = req.body;
   const userId = nanoid();
   const salt = bcrypt.genSaltSync(5);
   password = bcrypt.hashSync(password, salt);
 
-  sequelize
-    .query(
-      `INSERT INTO Users 
+  const dbRes = await sequelize.query(`
+    SELECT * FROM Users
+    WHERE lower(email) = '${email.toLowerCase()}'
+  `);
+
+  const user = dbRes[0];
+
+  if (user.length === 0) {
+    sequelize
+      .query(
+        `INSERT INTO Users 
     (user_id, first_name, last_name, email, password)
     VALUES 
     ('${userId}', '${firstName}', '${lastName}', '${email}', '${password}')
     RETURNING *;
     `
-    )
-    .then((dbRes) => res.status(200).send(dbRes[0]))
-    .catch((err) => res.status(400).send(err));
+      )
+      .then((dbRes) => res.status(200).send(dbRes[0]))
+      .catch((err) => res.status(400).send(err));
+  } else {
+    return res.status(400).send(`Email Already Exists`);
+  }
 };
 
 const getUser = async (req, res) => {
@@ -136,12 +164,111 @@ const getUser = async (req, res) => {
   }
 };
 
+const getUserFavComic = (req, res) => {
+  const { userId } = req.query;
+  sequelize
+    .query(
+      `
+    SELECT * FROM User_Comics uc
+    JOIN Comics c
+    ON c.id = uc.comic_id
+    WHERE uc.user_id = ${+userId};
+  `
+    )
+    .then((dbRes) => res.status(200).send(dbRes[0]))
+    .catch((err) => res.sendStatus(400));
+};
+
+const getUserFavCharacter = (req, res) => {
+  const { userId } = req.query;
+  sequelize
+    .query(
+      `
+    SELECT * FROM User_Characters uc
+    JOIN Characters c
+    ON c.id = uc.character_id
+    WHERE uc.user_id = ${+userId};
+  `
+    )
+    .then((dbRes) => res.status(200).send(dbRes[0]))
+    .catch((err) => res.sendStatus(400));
+};
+
+const addFavComic = async (req, res) => {
+  const { userId, comicId } = req.body;
+
+  sequelize
+    .query(
+      `
+  INSERT INTO User_Comics
+  (user_id, comic_id)
+  VALUES
+  (${+userId}, ${comicId});
+  `
+    )
+    .then((dbRes) => res.sendStatus(200))
+    .catch((err) => res.sendStatus(400));
+};
+
+const addFavCharacter = async (req, res) => {
+  const { userId, charId } = req.body;
+
+  sequelize
+    .query(
+      `
+  INSERT INTO User_Characters
+  (user_id, character_id)
+  VALUES
+  (${+userId}, ${charId});
+  `
+    )
+    .then(() => res.sendStatus(200))
+    .catch(() => res.sendStatus(400));
+};
+
+const removeFavComic = (req, res) => {
+  const { userId, comicId } = req.query;
+
+  sequelize
+    .query(
+      `
+  DELETE FROM User_Comics
+  WHERE user_id = ${+userId}
+  AND comic_id = ${+comicId};
+  `
+    )
+    .then(() => res.sendStatus(200))
+    .catch(() => res.sendStatus(400));
+};
+
+const removeFavCharacter = (req, res) => {
+  const { userId, charId } = req.query;
+
+  sequelize
+    .query(
+      `
+  DELETE FROM User_Characters
+  WHERE user_id = ${+userId}
+  AND character_id = ${+charId};
+  `
+    )
+    .then(() => res.sendStatus(200))
+    .catch(() => res.sendStatus(400));
+};
+
 module.exports = {
   searchCharacters,
   searchComics,
   getComics,
   getCharacter,
   getCharacterComics,
+  getComicCharacters,
   addUser,
-  getUser
+  getUser,
+  getUserFavComic,
+  getUserFavCharacter,
+  addFavComic,
+  addFavCharacter,
+  removeFavComic,
+  removeFavCharacter
 };

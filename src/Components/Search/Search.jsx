@@ -15,7 +15,7 @@ function Search() {
   } = useCardManagement(`characters`);
 
   const { mouseEventHandler: comicEventHandler, mouseEvent: comicEvent } =
-    useCardManagement(`comic`);
+    useCardManagement(`comics`);
 
   return (
     <section className="section search-section">

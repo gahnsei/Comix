@@ -6,14 +6,7 @@ function SearchBoxRes(props) {
   const isCharacter = type === `characters`;
 
   return (
-    <div
-      className="inputRes-div"
-      onClick={
-        isCharacter
-          ? () => navigate(`/character/${id}`)
-          : () => console.log(`hi`)
-      }
-    >
+    <div className="inputRes-div" onClick={() => navigate(`/${type}/${id}`)}>
       {isCharacter ? (
         <i className="fa-solid fa-mask"></i>
       ) : (

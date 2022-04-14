@@ -48,12 +48,11 @@ function useLogin() {
   };
 
   useEffect(() => {
-    setFormError({
-      server:
-        dbErr === `Request failed with status code 404`
-          ? `Invalid Email / Password`
-          : `Server Error`
-    });
+    if (loginForm.email) {
+      setFormError({
+        server: dbErr
+      });
+    }
   }, [dbErr]);
 
   return { loginForm, handleFormChange, formError, submitForm };

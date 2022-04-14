@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useDataBase from "./useDataBase";
 
 function useSignUp() {
@@ -16,7 +16,7 @@ function useSignUp() {
     password: ``
   });
 
-  const { addUser } = useDataBase(``);
+  const { addUser, dbErr } = useDataBase(``);
 
   const handleFormChange = (event) => {
     const { value, name } = event.target;
@@ -55,10 +55,17 @@ function useSignUp() {
         password: passwordError
       });
     } else {
-      const serverError = addUser(newUserForm);
-      if (serverError) setFormError({ server: serverError });
+      addUser(newUserForm);
     }
   };
+
+  useEffect(() => {
+    if (newUserForm.firstName) {
+      setFormError({
+        server: dbErr
+      });
+    }
+  }, [dbErr]);
 
   return { newUserForm, handleFormChange, formError, submitForm };
 }

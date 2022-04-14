@@ -6,6 +6,8 @@ const useWindowWidth = () => {
   useEffect(() => {
     window.addEventListener(`resize`, () => setWindowWidth(window.innerWidth));
 
+    setWindowWidth(window.innerWidth);
+
     return () =>
       window.removeEventListener(`resize`, () =>
         setWindowWidth(window.innerWidth)

@@ -4,14 +4,15 @@ import Card from "../Cards/Card";
 import useCardManagement from "../../utils/useCardManagement";
 
 function CharacterComics(props) {
+  const { type } = props;
   const { id } = useParams();
-  const { dbRes: comics } = useDataBase(`/characters/comics?id=${id}`);
-  const { mouseEventHandler, mouseEvent } = useCardManagement(`comics`);
+  const { dbRes: comics } = useDataBase(`/${type}/relations?id=${id}`);
+  const relationType = type === `comics` ? `characters` : `comics`;
+  const { mouseEventHandler, mouseEvent } = useCardManagement(relationType);
 
-  console.log(comics);
   return (
     <div className="character-comics">
-      <h3>Comics</h3>
+      <h3>{relationType.toUpperCase()}</h3>
       <div className="flex-scroll">
         {comics.map((ele) => (
           <Card
