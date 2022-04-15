@@ -4,7 +4,7 @@ Users will be given the opportunity to browse Marvel's characters and comics. Us
 
 ## MVP
 
-- [- ] Users can browse Marvel characters
+- [ ] Users can browse Marvel characters
 - [ ] Users can browse up to 25 comics per character
 - [ ] Users can search each comic in Amazon directly from Comix
 - [ ] Users can create personal account to track favorite comics and characters
