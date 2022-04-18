@@ -62,7 +62,9 @@ function useSignUp() {
   useEffect(() => {
     if (newUserForm.firstName) {
       setFormError({
-        server: dbErr
+        server: dbErr.includes(`Email Already Exists`)
+          ? `Email Already Exists`
+          : dbErr
       });
     }
   }, [dbErr]);

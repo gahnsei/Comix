@@ -3,7 +3,7 @@ import useDataBase from "../../utils/useDataBase";
 import { useNavigate } from "react-router";
 import SearchBoxRes from "./SearchBoxRes";
 
-function SearchBox() {
+function SearchBox(props) {
   const [input, setInput] = useState(``);
   const { dbRes: charData } = useDataBase(
     `/characters/search?q=${input}&limit=3`
@@ -11,14 +11,19 @@ function SearchBox() {
   const { dbRes: comicData } = useDataBase(`/comics/search?q=${input}&limit=3`);
   const navigate = useNavigate();
 
+  const { resetNavDrawer } = props;
+
   const resetInput = () => {
     setInput(``);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    resetInput();
     navigate(`/search?q=${input}`);
+    resetInput();
+    if (resetNavDrawer) {
+      resetNavDrawer();
+    }
   };
 
   return (
@@ -32,8 +37,20 @@ function SearchBox() {
       />
       <div className="inputRes">
         {input && [
-          ...charData.map((ele) => <SearchBoxRes {...ele} type="characters" />),
-          ...comicData.map((ele) => <SearchBoxRes {...ele} type="comics" />)
+          ...charData.map((ele) => (
+            <SearchBoxRes
+              {...ele}
+              resetNavDrawer={resetNavDrawer}
+              type="characters"
+            />
+          )),
+          ...comicData.map((ele) => (
+            <SearchBoxRes
+              {...ele}
+              resetNavDrawer={resetNavDrawer}
+              type="comics"
+            />
+          ))
         ]}
       </div>
     </form>

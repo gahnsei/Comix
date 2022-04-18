@@ -139,7 +139,8 @@ const addUser = async (req, res) => {
       .then((dbRes) => res.status(200).send(dbRes[0]))
       .catch((err) => res.status(400).send(err));
   } else {
-    return res.status(400).send(`Email Already Exists`);
+    const rand = Math.random();
+    return res.status(400).send(`Email Already Exists ${rand}`);
   }
 };
 
@@ -154,13 +155,15 @@ const getUser = async (req, res) => {
   const user = dbRes[0];
 
   if (user.length === 0) {
-    return res.status(404).send(`User Not Found`);
+    const rand = Math.random();
+    return res.status(404).send(`User Not Found ${rand}`);
   } else {
+    const rand = Math.random();
     let userPassword = user[0].password;
     const compare = bcrypt.compareSync(password, userPassword);
     return compare
       ? res.status(200).send(user)
-      : res.status(400).send(`Incorrect Password`);
+      : res.status(400).send(`Incorrect Password ${rand}`);
   }
 };
 

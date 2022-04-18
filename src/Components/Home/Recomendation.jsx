@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
 import Card from "../Cards/Card";
 import useDataBase from "../../utils/useDataBase";
 import useCardManagement from "../../utils/useCardManagement";
@@ -20,6 +18,7 @@ const Recomendation = (props) => {
             handleEvent={mouseEventHandler}
             isHovered={mouseEvent.hover && mouseEvent.id === ele.id}
             isClicked={mouseEvent.click && mouseEvent.id === ele.id}
+            type={type}
           />
         ))}
       </div>

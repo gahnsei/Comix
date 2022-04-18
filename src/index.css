@@ -26,10 +26,9 @@ ol {
   cursor: pointer;
 }
 
-.App {
+.main {
   position: relative;
-  min-height: 100vh;
-  padding-bottom: 10rem;
+  min-height: 80vh;
 }
 
 /* Header */
@@ -51,7 +50,7 @@ ol {
 
 .nav ol li {
   color: #e1ba4d;
-  margin-right: 1.5rem;
+  margin-right: 6vw;
   font-size: 1rem;
 }
 
@@ -103,6 +102,32 @@ ol {
   margin-bottom: 1rem;
 }
 
+@media (max-width: 285px) {
+  .nav-drawer-list {
+    font-size: 0.7rem;
+  }
+}
+
+@media (min-width: 576px) {
+  .logo {
+    flex-direction: column;
+    align-items: center;
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .nav ol li {
+    margin-right: 2vw;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  .nav ol li {
+    margin-right: 6vw;
+  }
+}
+
 /* Jumbotron */
 
 .jumbotron {
@@ -121,6 +146,17 @@ ol {
 
 .primary-color-text {
   color: #e1ba4d;
+}
+
+@media (min-width: 576px) {
+  .jumbotron {
+    height: 38rem;
+  }
+
+  .jumbotron .search-box > input,
+  i {
+    font-size: 1.5rem;
+  }
 }
 
 /* Search Box*/
@@ -154,10 +190,10 @@ ol {
 }
 
 .inputRes-div {
-  padding: 0.5rem 1rem;
+  padding: 0.25rem 0.7rem;
   display: flex;
   align-items: center;
-  font-size: 0.9rem;
+  font-size: 0.6rem;
   color: rgb(122, 122, 122);
   z-index: 2;
 }
@@ -180,6 +216,16 @@ ol {
   margin-right: 0.5rem;
 }
 
+@media (min-width: 576px) {
+  .inputRes-div * {
+    font-size: 1rem;
+  }
+
+  .inputRes-div {
+    padding: 0.6rem 0.8rem;
+  }
+}
+
 /* Section */
 
 .section {
@@ -197,6 +243,16 @@ ol {
   overflow-x: scroll;
   flex-wrap: nowrap;
   justify-content: flex-start;
+}
+
+.flex-scroll-y {
+  display: flex;
+  flex-direction: column;
+  overflow-x: scroll;
+}
+
+.flex-scroll-y::-webkit-scrollbar {
+  display: none;
 }
 
 .flex-scroll::-webkit-scrollbar {
@@ -219,6 +275,19 @@ ol {
   border: 0.2rem solid black;
   margin-left: 1rem;
   cursor: pointer;
+}
+
+.character-card {
+  border-radius: 1rem;
+}
+
+.character-card > .card-background {
+  border-radius: 0.8rem;
+}
+
+.character-card .card-preview-info {
+  border-bottom-left-radius: 0.8rem;
+  border-bottom-right-radius: 0.8rem;
 }
 
 .card:first-child {
@@ -252,8 +321,6 @@ ol {
   color: white;
 }
 
-/* Modal */
-
 /* Catalogue */
 
 .catalogue-letter {
@@ -273,6 +340,7 @@ ol {
 }
 
 .letter-label {
+  font-size: 1.5rem;
   padding-right: 2rem;
   margin-bottom: 2rem;
   margin-left: 1rem;
@@ -286,11 +354,21 @@ ol {
   margin-bottom: 1rem;
 }
 
+@media (min-width: 450px) {
+  .letter-label {
+    margin-left: 2rem;
+  }
+}
+
 /* Character Page */
 
+.content-page {
+  display: flex;
+  min-height: 80vh;
+  flex-direction: column;
+}
+
 .character-image {
-  width: 100%;
-  height: 25rem;
   object-fit: cover;
   object-position: top center;
 }
@@ -327,10 +405,12 @@ ol {
 
 .character-description {
   margin-top: 1rem;
+  max-width: 35rem;
 }
 
 .character-comics {
   margin-top: 1rem;
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   max-width: 100%;
@@ -338,7 +418,50 @@ ol {
 
 .character-comics h3 {
   margin-bottom: 0.5rem;
+  margin-left: 1rem;
   font-size: 1rem;
+}
+
+@media (max-width: 576px) {
+  .character-image {
+    width: 100%;
+    height: 25rem;
+  }
+}
+
+@media (min-width: 576px) {
+  .content-page {
+    flex-direction: row;
+  }
+
+  .character-image {
+    width: 100%;
+    height: 100%;
+  }
+
+  .green {
+    width: 30%;
+    min-width: 20rem;
+    border-right: 0.2rem solid black;
+  }
+
+  .character-name {
+    font-size: 2rem;
+  }
+
+  .flex-scroll-y {
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    width: 70%;
+  }
+
+  .character-description {
+    font-size: 1.2rem;
+  }
+
+  .character-comics h3 {
+    margin-bottom: 1.5rem;
+  }
 }
 
 /* Search Page*/
@@ -414,7 +537,7 @@ ol {
 }
 
 .auth-button {
-  padding-block: 0.5rem;
+  padding-block: 0.75rem;
   background-color: #e1ba4d;
   color: white;
   border: none;
@@ -423,6 +546,7 @@ ol {
   margin-block: 0.6em;
   font-size: 1.25rem;
   width: 12em;
+  text-align: center;
 }
 
 .auth-form {
@@ -432,7 +556,6 @@ ol {
   align-items: center;
   width: 100%;
   max-width: 20rem;
-  padding: 0 2rem;
 }
 
 .auth-input-box {
@@ -469,14 +592,19 @@ ol {
   margin-left: 1em;
 }
 
+@media (max-width: 450px) {
+  .auth-input-box {
+    width: auto;
+  }
+
+  .auth-redirect {
+    align-self: center;
+  }
+}
+
 /* Footer */
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
   background-color: #2b2b2b;
   min-height: 10rem;
-  margin-top: 1rem;
 }

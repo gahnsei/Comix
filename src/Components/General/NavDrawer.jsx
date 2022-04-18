@@ -18,7 +18,7 @@ function NavDrawer(props) {
           </li>
         </ol>
       )}
-      <SearchBox />
+      <SearchBox resetNavDrawer={resetNavDrawer} />
     </div>
   );
 }

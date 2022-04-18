@@ -11,7 +11,7 @@ function CharacterComics(props) {
   const { mouseEventHandler, mouseEvent } = useCardManagement(relationType);
 
   return (
-    <div className="character-comics">
+    <section className="character-comics">
       <h3>{relationType.toUpperCase()}</h3>
       <div className="flex-scroll">
         {comics.map((ele) => (
@@ -21,10 +21,11 @@ function CharacterComics(props) {
             handleEvent={mouseEventHandler}
             isHovered={mouseEvent.hover && mouseEvent.id === ele.id}
             isClicked={mouseEvent.click && mouseEvent.id === ele.id}
+            type={relationType}
           />
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 

@@ -68,7 +68,7 @@ function Header() {
                 ></i>
               )
             ) : (
-              <SearchBox />
+              <SearchBox resetNavDrawer={resetNavDrawer} />
             )}
           </>
         )}

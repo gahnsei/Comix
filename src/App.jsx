@@ -11,8 +11,8 @@ import Footer from "./Components/General/Footer";
 function App() {
   return (
     <UserContext>
-      <div className="App">
-        <Header />
+      <Header />
+      <main className="main">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/:contentType" element={<Catalogue />} />
@@ -20,8 +20,8 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/myaccount/*" element={<MyAccount />} />
         </Routes>
-        <Footer />
-      </div>
+      </main>
+      <Footer />
     </UserContext>
   );
 }

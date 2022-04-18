@@ -50,7 +50,9 @@ function useLogin() {
   useEffect(() => {
     if (loginForm.email) {
       setFormError({
-        server: dbErr
+        server: dbErr.includes(`User Not Found`)
+          ? `User Not Found`
+          : `Incorrect Password`
       });
     }
   }, [dbErr]);

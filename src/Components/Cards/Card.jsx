@@ -1,10 +1,12 @@
 function Card(props) {
-  const { id, name, image, handleEvent, isHovered, isClicked } = props;
+  const { id, name, image, handleEvent, isHovered, isClicked, type } = props;
 
   return (
     <>
       <div
-        className={`card home-comic `}
+        className={`card home-comic ${
+          type === `characters` && `character-card`
+        }`}
         onMouseEnter={() => handleEvent.onHover(id)}
         onMouseLeave={!isClicked && handleEvent.resetEvent}
         onClick={() => handleEvent.cardClick(id)}

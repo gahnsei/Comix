@@ -11,7 +11,7 @@ function Character() {
   const { userFavs, addFavs, removeFavs, userInfo } = useHandleUser();
   const navigate = useNavigate();
   const character = dbRes[0] || {};
-  const { name, image, description } = character;
+  const { name, marvel_url, image, description } = character;
   const isFav = userFavs.includes(name);
 
   const handleFavButton = () => {
@@ -23,18 +23,24 @@ function Character() {
       navigate(`/myaccount`);
     }
   };
+
   return (
-    <>
-      <img src={image} alt={name} className="character-image" />
-      <CharacterInfo
-        name={name}
-        description={description}
-        isFav={isFav}
-        handleFavButton={handleFavButton}
-        type={contentType}
-      />
-      <CharacterComics type={contentType} />
-    </>
+    <div className="content-page">
+      <div className="green">
+        <img src={image} alt={name} className="character-image" />
+      </div>
+      <div className="flex-scroll-y">
+        <CharacterInfo
+          name={name}
+          description={description}
+          marvelUrl={marvel_url}
+          isFav={isFav}
+          handleFavButton={handleFavButton}
+          type={contentType}
+        />
+        <CharacterComics type={contentType} />
+      </div>
+    </div>
   );
 }
 
