@@ -540,6 +540,9 @@ ol {
   font-size: 0.7rem;
   color: rgb(255, 68, 68);
   align-self: flex-start;
+  padding: 0.4rem;
+  background-color: white;
+  border-radius: 0.5rem;
 }
 
 .auth-redirect {
