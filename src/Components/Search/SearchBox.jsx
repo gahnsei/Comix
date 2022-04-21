@@ -15,15 +15,15 @@ function SearchBox(props) {
 
   const resetInput = () => {
     setInput(``);
+    if (resetNavDrawer) {
+      resetNavDrawer();
+    }
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     navigate(`/search?q=${input}`);
     resetInput();
-    if (resetNavDrawer) {
-      resetNavDrawer();
-    }
   };
 
   return (
@@ -40,16 +40,12 @@ function SearchBox(props) {
           ...charData.map((ele) => (
             <SearchBoxRes
               {...ele}
-              resetNavDrawer={resetNavDrawer}
+              resetNavDrawer={resetInput}
               type="characters"
             />
           )),
           ...comicData.map((ele) => (
-            <SearchBoxRes
-              {...ele}
-              resetNavDrawer={resetNavDrawer}
-              type="comics"
-            />
+            <SearchBoxRes {...ele} resetNavDrawer={resetInput} type="comics" />
           ))
         ]}
       </div>

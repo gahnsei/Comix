@@ -10,7 +10,7 @@ function Letter(props) {
   const isOpened = openLetter === letter;
 
   return (
-    <div
+    <section
       className={`catalogue-letter ${!isOpened && `hover`}`}
       onClick={() => changeLetter(letter)}
     >
@@ -27,16 +27,15 @@ function Letter(props) {
           {filteredData.map((ele) => (
             <Card
               type={type}
-              key={ele.id}
+              key={ele.marvel_id}
               {...ele}
               handleEvent={mouseEventHandler}
               isHovered={mouseEvent.hover && mouseEvent.id === ele.id}
-              isClicked={mouseEvent.click && mouseEvent.id === ele.id}
             />
           ))}
         </div>
       )}
-    </div>
+    </section>
   );
 }
 

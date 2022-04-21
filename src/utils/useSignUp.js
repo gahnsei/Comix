@@ -3,17 +3,19 @@ import useDataBase from "./useDataBase";
 
 function useSignUp() {
   const [newUserForm, setNewUserForm] = useState({
-    firstName: ``,
-    lastName: ``,
+    "First Name": ``,
+    "Last Name": ``,
     email: ``,
-    password: ``
+    password: ``,
+    "Verify Password": ``
   });
 
   const [formError, setFormError] = useState({
-    firstName: ``,
-    lastName: ``,
+    "First Name": ``,
+    "Last Name": ``,
     email: ``,
-    password: ``
+    password: ``,
+    "Verify Password": ``
   });
 
   const { addUser, dbErr } = useDataBase(``);
@@ -21,10 +23,11 @@ function useSignUp() {
   const handleFormChange = (event) => {
     const { value, name } = event.target;
     setFormError({
-      firstName: ``,
-      lastName: ``,
+      "First Name": ``,
+      "Last Name": ``,
       email: ``,
       password: ``,
+      "Verify Password": ``,
       server: ``
     });
 
@@ -37,22 +40,34 @@ function useSignUp() {
     let lastNameError = ``;
     let emailError = ``;
     let passwordError = ``;
+    let verifyPassError = ``;
 
-    if (!newUserForm.firstName) firstNameError = `First name can't be empty!`;
-    if (!newUserForm.lastName) lastNameError = `Last name can't be empty!`;
+    if (!newUserForm[`First Name`])
+      firstNameError = `First name can't be empty!`;
+    if (!newUserForm[`Last Name`]) lastNameError = `Last name can't be empty!`;
     if (!newUserForm.email) emailError = `Email can't be empty!`;
     if (!newUserForm.password) {
       passwordError = `Password can't be empty!`;
     } else if (newUserForm.password.length < 8) {
       passwordError = `Password should be at least 8 characters!`;
     }
+    if (newUserForm.password !== newUserForm["Verify Password"]) {
+      verifyPassError = `Passwords Don't Match`;
+    }
 
-    if (emailError || passwordError || firstNameError || lastNameError) {
+    if (
+      emailError ||
+      passwordError ||
+      firstNameError ||
+      lastNameError ||
+      verifyPassError
+    ) {
       setFormError({
-        firstName: firstNameError,
-        lastName: lastNameError,
+        "First Name": firstNameError,
+        "Last Name": lastNameError,
         email: emailError,
-        password: passwordError
+        password: passwordError,
+        "Verify Password": verifyPassError
       });
     } else {
       addUser(newUserForm);
@@ -60,7 +75,7 @@ function useSignUp() {
   };
 
   useEffect(() => {
-    if (newUserForm.firstName) {
+    if (newUserForm[`First Name`]) {
       setFormError({
         server: dbErr.includes(`Email Already Exists`)
           ? `Email Already Exists`

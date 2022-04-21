@@ -30,7 +30,7 @@ const Login = () => {
       <span className="auth-redirect">
         Don't have an account?
         <span onClick={() => navigate("/myaccount/signup")}>
-          Create an account
+          Create An Account
         </span>
       </span>
       <button className="auth-button" onClick={submitForm}>

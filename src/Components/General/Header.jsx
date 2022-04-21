@@ -4,10 +4,13 @@ import logo from "../../logo.png";
 import { NavLink } from "react-router-dom";
 import SearchBox from "../Search/SearchBox";
 import NavDrawer from "./NavDrawer";
+import { useHandleUser } from "../../utils/UserContext";
 
 function Header() {
   const windowWidth = useWindowWidth();
   const [openNav, setOpenNav] = useState(false);
+  const { userInfo } = useHandleUser();
+  const { user_id } = userInfo;
 
   const toggleDrawer = () => {
     setOpenNav((prevState) => !prevState);
@@ -50,7 +53,9 @@ function Header() {
                 <NavLink to="/characters">CHARACTERS</NavLink>
               </li>
               <li onClick={resetNavDrawer}>
-                <NavLink to="myaccount">MY ACCOUNT</NavLink>
+                <NavLink to={user_id ? `/myaccount` : `/myaccount/login`}>
+                  MY ACCOUNT
+                </NavLink>
               </li>
             </ol>
             {windowWidth <= 768 ? (
@@ -74,7 +79,11 @@ function Header() {
         )}
       </nav>
       {openNav && windowWidth <= 768 && (
-        <NavDrawer windowWidth={windowWidth} resetNavDrawer={resetNavDrawer} />
+        <NavDrawer
+          windowWidth={windowWidth}
+          resetNavDrawer={resetNavDrawer}
+          userId={user_id}
+        />
       )}
     </header>
   );

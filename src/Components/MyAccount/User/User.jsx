@@ -1,14 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useHandleUser } from "../../../utils/UserContext";
 import UserInfo from "./UserInfo";
-import { Routes, Route } from "react-router";
+import UserNav from "./UserNav";
 import UserFavorites from "./UserFavorites";
 
 function User() {
+  const [infoType, setInfoType] = useState(`profile`);
   const navigate = useNavigate();
   const { userInfo } = useHandleUser();
   const { user_id } = userInfo;
+
+  const profileActive = infoType === "profile";
+  const favComicsActive = infoType === "favComics";
+  const favCharactersActive = infoType === "favCharacters";
 
   useEffect(() => {
     if (!user_id) {
@@ -16,10 +21,29 @@ function User() {
     }
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
+
+  if (!user_id) return <></>;
+
   return (
-    <section>
-      <UserInfo {...userInfo} />
-      <UserFavorites type="characters" userId={userInfo.id} />
+    <section className="section user-page">
+      <UserNav
+        profileActive={profileActive}
+        favCharactersActive={favCharactersActive}
+        favComicsActive={favComicsActive}
+        setInfoType={setInfoType}
+      />
+      <div className="user-content">
+        {profileActive ? (
+          <UserInfo {...userInfo} />
+        ) : favComicsActive ? (
+          <UserFavorites contentType="comics" userId={userInfo.id} />
+        ) : (
+          <UserFavorites contentType="characters" userId={userInfo.id} />
+        )}
+      </div>
     </section>
   );
 }

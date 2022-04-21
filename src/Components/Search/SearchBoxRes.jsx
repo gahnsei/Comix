@@ -6,8 +6,8 @@ function SearchBoxRes(props) {
   const isCharacter = type === `characters`;
 
   const handleClick = () => {
-    if (resetNavDrawer) resetNavDrawer();
     navigate(`/${type}/${id}`);
+    if (resetNavDrawer) resetNavDrawer();
   };
 
   return (

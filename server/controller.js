@@ -13,6 +13,10 @@ const sequelize = new Sequelize(DATABASE_URL, {
   }
 });
 
+const welcome = (__req, res) => {
+  res.sendStatus(200);
+};
+
 const searchCharacters = (req, res) => {
   let { limit, q } = req.query;
 
@@ -260,6 +264,7 @@ const removeFavCharacter = (req, res) => {
 };
 
 module.exports = {
+  welcome,
   searchCharacters,
   searchComics,
   getComics,

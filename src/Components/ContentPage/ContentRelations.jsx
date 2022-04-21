@@ -3,11 +3,11 @@ import { useParams } from "react-router";
 import Card from "../Cards/Card";
 import useCardManagement from "../../utils/useCardManagement";
 
-function CharacterComics(props) {
-  const { type } = props;
+function ContentRelations(props) {
+  const { contentType } = props;
   const { id } = useParams();
-  const { dbRes: comics } = useDataBase(`/${type}/relations?id=${id}`);
-  const relationType = type === `comics` ? `characters` : `comics`;
+  const { dbRes: comics } = useDataBase(`/${contentType}/relations?id=${id}`);
+  const relationType = contentType === `comics` ? `characters` : `comics`;
   const { mouseEventHandler, mouseEvent } = useCardManagement(relationType);
 
   return (
@@ -21,7 +21,7 @@ function CharacterComics(props) {
             handleEvent={mouseEventHandler}
             isHovered={mouseEvent.hover && mouseEvent.id === ele.id}
             isClicked={mouseEvent.click && mouseEvent.id === ele.id}
-            type={relationType}
+            contentType={relationType}
           />
         ))}
       </div>
@@ -29,4 +29,4 @@ function CharacterComics(props) {
   );
 }
 
-export default CharacterComics;
+export default ContentRelations;

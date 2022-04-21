@@ -9,6 +9,8 @@ app.use(cors());
 
 // Endpoints
 
+app.get(`/`, ctrl.welcome);
+
 app.get(`/characters`, ctrl.getCharacter);
 app.get(`/characters/relations`, ctrl.getCharacterComics);
 app.get(`/characters/search`, ctrl.searchCharacters);

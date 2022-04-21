@@ -6,6 +6,7 @@ const useCardManagement = (type) => {
     hover: false,
     id: ``
   });
+
   const navigate = useNavigate();
 
   const onHover = (id) => {
@@ -18,18 +19,13 @@ const useCardManagement = (type) => {
       id: ``
     });
 
-  const nameClick = (id) => {
-    navigate(`/${type}/${id}`);
-  };
-
   const cardClick = (id) => {
-    nameClick(id);
+    navigate(`/${type}/${id}`);
   };
 
   const mouseEventHandler = {
     onHover,
     resetEvent,
-    nameClick,
     cardClick
   };
 

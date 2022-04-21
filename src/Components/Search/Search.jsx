@@ -25,8 +25,8 @@ function Search() {
       <div className="search-results">
         {charData.map((ele) => (
           <Card
-            type="characters"
-            key={ele.id}
+            contentType="characters"
+            key={ele.marvel_id}
             {...ele}
             handleEvent={characterEventHandler}
             isHovered={characterEvent.hover && characterEvent.id === ele.id}
@@ -35,8 +35,8 @@ function Search() {
         ))}
         {comicData.map((ele) => (
           <Card
-            type="comics"
-            key={ele.id}
+            contentType="comics"
+            key={ele.marvel_id}
             {...ele}
             handleEvent={comicEventHandler}
             isHovered={comicEvent.hover && comicEvent.id === ele.id}

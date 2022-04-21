@@ -1,11 +1,12 @@
 import { useParams } from "react-router";
-import CharacterInfo from "./CharacterInfo";
+import ContentInfo from "./ContentInfo";
 import useDataBase from "../../utils/useDataBase";
 import { useHandleUser } from "../../utils/UserContext";
-import CharacterComics from "./CharacterComics";
+import ContentRelations from "./ContentRelations";
 import { useNavigate } from "react-router";
+import { useEffect } from "react";
 
-function Character() {
+function Content() {
   const { contentType, id } = useParams();
   const { dbRes } = useDataBase(`/${contentType}?id=${id}`);
   const { userFavs, addFavs, removeFavs, userInfo } = useHandleUser();
@@ -20,9 +21,13 @@ function Character() {
         ? removeFavs(name, id, contentType)
         : addFavs(name, id, contentType);
     } else {
-      navigate(`/myaccount`);
+      navigate(`/myaccount/login`);
     }
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   return (
     <div className="content-page">
@@ -30,18 +35,18 @@ function Character() {
         <img src={image} alt={name} className="character-image" />
       </div>
       <div className="flex-scroll-y">
-        <CharacterInfo
+        <ContentInfo
           name={name}
           description={description}
           marvelUrl={marvel_url}
           isFav={isFav}
           handleFavButton={handleFavButton}
-          type={contentType}
+          contentType={contentType}
         />
-        <CharacterComics type={contentType} />
+        <ContentRelations contentType={contentType} />
       </div>
     </div>
   );
 }
 
-export default Character;
+export default Content;

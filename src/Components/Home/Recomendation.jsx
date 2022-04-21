@@ -3,8 +3,8 @@ import useDataBase from "../../utils/useDataBase";
 import useCardManagement from "../../utils/useCardManagement";
 
 const Recomendation = (props) => {
-  const { url, label, type } = props;
-  const { mouseEventHandler, mouseEvent } = useCardManagement(type);
+  const { url, label, contentType } = props;
+  const { mouseEventHandler, mouseEvent } = useCardManagement(contentType);
   const { dbRes: data } = useDataBase(url);
 
   return (
@@ -13,12 +13,12 @@ const Recomendation = (props) => {
       <div className="flex-scroll">
         {data.map((ele) => (
           <Card
-            key={ele.id}
+            key={ele.marvel_id}
             {...ele}
             handleEvent={mouseEventHandler}
             isHovered={mouseEvent.hover && mouseEvent.id === ele.id}
             isClicked={mouseEvent.click && mouseEvent.id === ele.id}
-            type={type}
+            contentType={contentType}
           />
         ))}
       </div>

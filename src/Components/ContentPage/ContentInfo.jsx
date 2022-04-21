@@ -1,5 +1,7 @@
-function CharacterInfo(props) {
-  const { name, description, isFav, handleFavButton, type, marvelUrl } = props;
+function ContentInfo(props) {
+  const { name, description, isFav, handleFavButton, contentType, marvelUrl } =
+    props;
+
   return (
     <section className="section character-info">
       <h1 className="character-name">{name}</h1>
@@ -9,15 +11,22 @@ function CharacterInfo(props) {
       >
         Favorite
       </button>
-      {type === `comics` ? (
+      {contentType === `comics` ? (
         <a
-          href={`https://www.amazon.com/s?k=${name}`}
+          href={`https://www.amazon.com/s?k=marvel+${name}`}
           className="character-button amazon-button"
+          target="_blank"
+          rel="noreferrer"
         >
           Search On Amazon
         </a>
       ) : (
-        <a href={marvelUrl} className="character-button amazon-button">
+        <a
+          href={marvelUrl}
+          className="character-button amazon-button"
+          target="_blank"
+          rel="noreferrer"
+        >
           Discover More
         </a>
       )}
@@ -26,4 +35,4 @@ function CharacterInfo(props) {
   );
 }
 
-export default CharacterInfo;
+export default ContentInfo;

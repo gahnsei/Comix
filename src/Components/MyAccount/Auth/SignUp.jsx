@@ -12,19 +12,19 @@ function SignUp() {
       <h1 className="auth-header">Create An Account</h1>
       <InputBox
         type="text"
-        value={newUserForm.firstName}
-        name="firstName"
+        value={newUserForm[`First Name`]}
+        name="First Name"
         id="firstName"
         handleChange={handleFormChange}
-        error={formError.firstName}
+        error={formError[`First Name`]}
       />
       <InputBox
         type="text"
-        value={newUserForm.lastName}
-        name="lastName"
+        value={newUserForm["Last Name"]}
+        name="Last Name"
         id="lastName"
         handleChange={handleFormChange}
-        error={formError.lastName}
+        error={formError["Last Name"]}
       />
       <InputBox
         type="text"
@@ -41,6 +41,14 @@ function SignUp() {
         id="password"
         handleChange={handleFormChange}
         error={formError.password}
+      />
+      <InputBox
+        type="password"
+        value={newUserForm[`Verify Password`]}
+        name="Verify Password"
+        id="verifyPassword"
+        handleChange={handleFormChange}
+        error={formError[`Verify Password`]}
       />
       {formError.server && (
         <span className="auth-server-error">{formError.server}</span>

@@ -25,13 +25,22 @@ const useDataBase = (URL) => {
     axios
       .get(`${BASE_URL}/login?email=${email}&password=${password}`)
       .then((res) => {
-        handleUser.loginUser(res.data[0]);
+        handleUser.loginUser({ ...res.data[0], password });
         const userId = res.data[0].id;
         getFavCharacters(userId);
         getFavComics(userId);
         navigate(`/myaccount`);
       })
       .catch((err) => setDbErr(err.response.data));
+  };
+
+  const loginSavedUser = (userId) => {
+    axios.get(BASE_URL + `/user/saved`).then((res) => {
+      handleUser.loginUser({ ...res.data[0] });
+      const userId = res.data[0].id;
+      getFavCharacters(userId);
+      getFavComics(userId);
+    });
   };
 
   const addUser = (body) => {
