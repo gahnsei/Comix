@@ -8,10 +8,10 @@ function Home() {
   }, []);
 
   return (
-    <>
-      <div className="jumbotron">
+    <div className="home">
+      <section className="jumbotron">
         <SearchBox />
-      </div>
+      </section>
       <Recomendation
         url="/comics?limit=40&orderBy=release_date DESC"
         label="Latest Comics"
@@ -22,7 +22,7 @@ function Home() {
         label="Popular Characters"
         contentType="characters"
       />
-    </>
+    </div>
   );
 }
 

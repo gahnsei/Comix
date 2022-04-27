@@ -9,7 +9,7 @@ function Card(props) {
       onMouseLeave={handleEvent.resetEvent}
       onClick={() => handleEvent.cardClick(id)}
     >
-      <img src={image} alt={name} className="card-background" />
+      <img loading="lazy" src={image} alt={name} className="card-background" />
       {isHovered && (
         <div className="card-preview-info">
           <h2 className="card-preview-label">{name}</h2>

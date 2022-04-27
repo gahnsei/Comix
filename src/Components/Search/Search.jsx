@@ -1,13 +1,20 @@
-import { useSearchParams } from "react-router-dom";
 import Card from "../Cards/Card";
+import PlaceHolder from "../Cards/PlaceHolder";
+
 import useCardManagement from "../../utils/useCardManagement";
 import useDataBase from "../../utils/useDataBase";
+
+import { useSearchParams } from "react-router-dom";
 
 function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get(`q`);
-  const { dbRes: charData } = useDataBase(`/characters/search?q=${query}`);
-  const { dbRes: comicData } = useDataBase(`/comics/search?q=${query}`);
+  const { dbRes: charData, loading: charLoading } = useDataBase(
+    `/characters/search?q=${query}`
+  );
+  const { dbRes: comicData, loading: comicLoading } = useDataBase(
+    `/comics/search?q=${query}`
+  );
 
   const {
     mouseEventHandler: characterEventHandler,
@@ -17,34 +24,42 @@ function Search() {
   const { mouseEventHandler: comicEventHandler, mouseEvent: comicEvent } =
     useCardManagement(`comics`);
 
+  const placeHolderArr = [1, 2, 3, 4];
+
   return (
-    <section className="section search-section">
-      <div className="search-banner">
+    <div className="section search-section">
+      <section className="search-banner">
         SHOWING RESULTS FOR | {query.toUpperCase()}
-      </div>
-      <div className="search-results">
-        {charData.map((ele) => (
-          <Card
-            contentType="characters"
-            key={ele.marvel_id}
-            {...ele}
-            handleEvent={characterEventHandler}
-            isHovered={characterEvent.hover && characterEvent.id === ele.id}
-            isClicked={characterEvent.click && characterEvent.id === ele.id}
-          />
-        ))}
-        {comicData.map((ele) => (
-          <Card
-            contentType="comics"
-            key={ele.marvel_id}
-            {...ele}
-            handleEvent={comicEventHandler}
-            isHovered={comicEvent.hover && comicEvent.id === ele.id}
-            isClicked={comicEvent.click && comicEvent.id === ele.id}
-          />
-        ))}
-      </div>
-    </section>
+      </section>
+      <section className="search-results">
+        {charLoading && comicLoading ? (
+          placeHolderArr.map(() => <PlaceHolder />)
+        ) : (
+          <>
+            {charData.map((ele) => (
+              <Card
+                contentType="characters"
+                key={ele.marvel_id}
+                {...ele}
+                handleEvent={characterEventHandler}
+                isHovered={characterEvent.hover && characterEvent.id === ele.id}
+                isClicked={characterEvent.click && characterEvent.id === ele.id}
+              />
+            ))}
+            {comicData.map((ele) => (
+              <Card
+                contentType="comics"
+                key={ele.marvel_id}
+                {...ele}
+                handleEvent={comicEventHandler}
+                isHovered={comicEvent.hover && comicEvent.id === ele.id}
+                isClicked={comicEvent.click && comicEvent.id === ele.id}
+              />
+            ))}
+          </>
+        )}
+      </section>
+    </div>
   );
 }
 

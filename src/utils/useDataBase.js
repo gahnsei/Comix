@@ -8,13 +8,21 @@ const BASE_URL = `http://localhost:4444`;
 const useDataBase = (URL) => {
   const [dbRes, setDbRes] = useState([]);
   const [dbErr, setDbErr] = useState(``);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const handleUser = useHandleUser();
 
   useEffect(() => {
     const func = async () => {
-      const res = await axios.get(BASE_URL + URL);
-      setDbRes(res.data);
+      try {
+        setLoading(true);
+        const res = await axios.get(BASE_URL + URL);
+        setDbRes(res.data);
+      } catch (err) {
+        setDbErr(err);
+      } finally {
+        setLoading(false);
+      }
     };
 
     func();
@@ -95,9 +103,10 @@ const useDataBase = (URL) => {
 
   return {
     dbRes,
+    dbErr,
+    loading,
     loginUser,
     addUser,
-    dbErr,
     addFavComic,
     addFavCharacter,
     removeFavCharacters,

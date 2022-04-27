@@ -23,7 +23,7 @@ function Letter(props) {
         )}
       </div>
       {isOpened && (
-        <div className="catalogue-cards flex-scroll">
+        <div className={`catalogue-cards flex-scroll`}>
           {filteredData.map((ele) => (
             <Card
               type={type}

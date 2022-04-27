@@ -24,7 +24,7 @@ function Header() {
     <header className="header">
       <nav className="nav">
         <NavLink to="/">
-          <div className="logo">
+          <div className="logo" onClick={resetNavDrawer}>
             <img src={logo} alt="COMIX" />
             <span>COMIX</span>
           </div>

@@ -1,3 +1,5 @@
+import Loading from "../../General/Loading";
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useHandleUser } from "../../../utils/UserContext";
@@ -25,7 +27,7 @@ function User() {
     window.scrollTo(0, 0);
   });
 
-  if (!user_id) return <></>;
+  if (!user_id) return <Loading />;
 
   return (
     <section className="section user-page">

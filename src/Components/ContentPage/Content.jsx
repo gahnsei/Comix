@@ -1,18 +1,23 @@
-import { useParams } from "react-router";
 import ContentInfo from "./ContentInfo";
+import ContentRelations from "./ContentRelations";
+import PageNotFound from "../General/PageNotFound";
+import Loading from "../General/Loading";
+
 import useDataBase from "../../utils/useDataBase";
 import { useHandleUser } from "../../utils/UserContext";
-import ContentRelations from "./ContentRelations";
-import { useNavigate } from "react-router";
+
 import { useEffect } from "react";
+import { useParams, useNavigate } from "react-router";
 
 function Content() {
-  const { contentType, id } = useParams();
-  const { dbRes } = useDataBase(`/${contentType}?id=${id}`);
-  const { userFavs, addFavs, removeFavs, userInfo } = useHandleUser();
   const navigate = useNavigate();
-  const character = dbRes[0] || {};
-  const { name, marvel_url, image, description } = character;
+
+  const { contentType, id } = useParams();
+  const { dbRes, loading } = useDataBase(`/${contentType}?id=${id}`);
+  const content = dbRes[0] || {};
+  const { name, marvel_url, image, description } = content;
+
+  const { userFavs, addFavs, removeFavs, userInfo } = useHandleUser();
   const isFav = userFavs.includes(name);
 
   const handleFavButton = () => {
@@ -27,7 +32,10 @@ function Content() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [contentType, id]);
+
+  if (loading) return <Loading />;
+  if (!name) return <PageNotFound />;
 
   return (
     <div className="content-page">

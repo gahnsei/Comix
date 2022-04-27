@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import Letter from "./Letter";
 import { useEffect } from "react";
 import PageNotFound from "../General/PageNotFound";
+import Loading from "../General/Loading";
 
 const ALPHABET = [
   `A`,
@@ -36,7 +37,7 @@ const ALPHABET = [
 
 function Catalogue() {
   const { contentType } = useParams();
-  const { dbRes } = useDataBase(`/${contentType}?orderBy=name DESC`);
+  const { dbRes, loading } = useDataBase(`/${contentType}?orderBy=name DESC`);
   const [openLetter, setOpenLetter] = useState(`A`);
 
   useEffect(() => {
@@ -48,9 +49,8 @@ function Catalogue() {
     setOpenLetter(letter);
   };
 
-  if (contentType !== `comics` && contentType !== `characters`) {
-    return <PageNotFound />;
-  }
+  if (loading) return <Loading />;
+  if (dbRes.length === 0) return <PageNotFound />;
 
   return (
     <section className="section">

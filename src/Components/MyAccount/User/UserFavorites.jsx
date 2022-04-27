@@ -13,16 +13,20 @@ function UserFavorites(props) {
         FAVORITE {contentType.toUpperCase()}
       </h1>
       <div className="user-fav-container">
-        {data.map((ele) => (
-          <Card
-            key={ele.marvel_id}
-            {...ele}
-            handleEvent={mouseEventHandler}
-            isHovered={mouseEvent.hover && mouseEvent.id === ele.id}
-            isClicked={mouseEvent.click && mouseEvent.id === ele.id}
-            contentType={contentType}
-          />
-        ))}
+        {data.length > 0 ? (
+          data.map((ele) => (
+            <Card
+              key={ele.marvel_id}
+              {...ele}
+              handleEvent={mouseEventHandler}
+              isHovered={mouseEvent.hover && mouseEvent.id === ele.id}
+              isClicked={mouseEvent.click && mouseEvent.id === ele.id}
+              contentType={contentType}
+            />
+          ))
+        ) : (
+          <h2 className="favorite-message">Add Favorites To See Them Here</h2>
+        )}
       </div>
     </>
   );
