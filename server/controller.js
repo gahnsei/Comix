@@ -118,7 +118,7 @@ const getComicCharacters = (req, res) => {
 };
 
 const addUser = async (req, res) => {
-  let { firstName, lastName, email, password } = req.body;
+  let { email, password } = req.body;
   const userId = nanoid();
   const salt = bcrypt.genSaltSync(5);
   password = bcrypt.hashSync(password, salt);
@@ -136,7 +136,9 @@ const addUser = async (req, res) => {
         `INSERT INTO Users 
     (user_id, first_name, last_name, email, password)
     VALUES 
-    ('${userId}', '${firstName}', '${lastName}', '${email}', '${password}')
+    ('${userId}', '${req.body["First Name"]}', '${
+          req.body[`Last Name`]
+        }', '${email}', '${password}')
     RETURNING *;
     `
       )
@@ -169,6 +171,18 @@ const getUser = async (req, res) => {
       ? res.status(200).send(user)
       : res.status(400).send(`Incorrect Password ${rand}`);
   }
+};
+
+const getSavedUSer = (req, res) => {
+  const { userId } = req.query;
+
+  sequelize
+    .query(
+      `SELECT * FROM Users
+    WHERE user_id = '${userId}';`
+    )
+    .then((dbRes) => res.status(200).send(dbRes[0]))
+    .catch((err) => res.status(400).send(err));
 };
 
 const getUserFavComic = (req, res) => {
@@ -263,6 +277,26 @@ const removeFavCharacter = (req, res) => {
     .catch(() => res.sendStatus(400));
 };
 
+const removeUser = (req, res) => {
+  const { userId } = req.query;
+
+  sequelize
+    .query(
+      `
+      DELETE FROM User_Comics
+      WHERE user_id = ${userId};
+
+      DELETE FROM User_Characters
+      WHERE user_id = ${userId};
+
+      DELETE FROM Users
+      WHERE id = ${userId}
+    `
+    )
+    .then((dbRes) => res.sendStatus(200))
+    .catch((err) => res.status(400).send(err));
+};
+
 module.exports = {
   welcome,
   searchCharacters,
@@ -273,8 +307,10 @@ module.exports = {
   getComicCharacters,
   addUser,
   getUser,
+  getSavedUSer,
   getUserFavComic,
   getUserFavCharacter,
+  removeUser,
   addFavComic,
   addFavCharacter,
   removeFavComic,

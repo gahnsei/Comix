@@ -22,8 +22,10 @@ function Letter(props) {
           <i className="fa-solid fa-angle-down"></i>
         )}
       </div>
-      {isOpened && (
-        <div className={`catalogue-cards flex-scroll`}>
+      {
+        <div
+          className={`catalogue-cards flex-scroll ${isOpened ? `` : `hidden`}`}
+        >
           {filteredData.map((ele) => (
             <Card
               type={type}
@@ -34,7 +36,7 @@ function Letter(props) {
             />
           ))}
         </div>
-      )}
+      }
     </section>
   );
 }

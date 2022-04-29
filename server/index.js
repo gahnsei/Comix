@@ -20,11 +20,13 @@ app.get(`/comics/search`, ctrl.searchComics);
 app.get(`/user/characters`, ctrl.getUserFavCharacter);
 app.get(`/user/comics`, ctrl.getUserFavComic);
 app.get(`/login`, ctrl.getUser);
+app.get(`/user/saved`, ctrl.getSavedUSer);
 
 app.post(`/user/characters`, ctrl.addFavCharacter);
 app.post(`/user/comics`, ctrl.addFavComic);
 app.post(`/signUp`, ctrl.addUser);
 
+app.delete(`/user`, ctrl.removeUser);
 app.delete(`/user/characters`, ctrl.removeFavCharacter);
 app.delete(`/user/comics`, ctrl.removeFavComic);
 

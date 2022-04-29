@@ -1,5 +1,5 @@
 import Card from "../Cards/Card";
-import PlaceHolder from "../Cards/PlaceHolder";
+import Loading from "../General/Loading";
 
 import useCardManagement from "../../utils/useCardManagement";
 import useDataBase from "../../utils/useDataBase";
@@ -24,8 +24,6 @@ function Search() {
   const { mouseEventHandler: comicEventHandler, mouseEvent: comicEvent } =
     useCardManagement(`comics`);
 
-  const placeHolderArr = [1, 2, 3, 4];
-
   return (
     <div className="section search-section">
       <section className="search-banner">
@@ -33,7 +31,7 @@ function Search() {
       </section>
       <section className="search-results">
         {charLoading && comicLoading ? (
-          placeHolderArr.map(() => <PlaceHolder />)
+          <Loading />
         ) : (
           <>
             {charData.map((ele) => (

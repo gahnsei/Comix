@@ -9,8 +9,8 @@ const useDataBase = (URL) => {
   const [dbRes, setDbRes] = useState([]);
   const [dbErr, setDbErr] = useState(``);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const handleUser = useHandleUser();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const func = async () => {
@@ -35,6 +35,7 @@ const useDataBase = (URL) => {
       .then((res) => {
         handleUser.loginUser({ ...res.data[0], password });
         const userId = res.data[0].id;
+        document.cookie = `qazxswedc=${res.data[0].user_id}*${password}`;
         getFavCharacters(userId);
         getFavComics(userId);
         navigate(`/myaccount`);
@@ -42,23 +43,21 @@ const useDataBase = (URL) => {
       .catch((err) => setDbErr(err.response.data));
   };
 
-  const loginSavedUser = (userId) => {
-    axios.get(BASE_URL + `/user/saved`).then((res) => {
-      handleUser.loginUser({ ...res.data[0] });
-      const userId = res.data[0].id;
-      getFavCharacters(userId);
-      getFavComics(userId);
-    });
-  };
-
   const addUser = (body) => {
     axios
       .post(`${BASE_URL}/signUp`, body)
       .then((res) => {
-        handleUser.loginUser(res.data[0]);
+        handleUser.loginUser({ ...res.data[0], password: body.password });
+        document.cookie = `qazxswedc=${res.data[0].user_id}*${body.password}`;
         navigate(`/myaccount`);
       })
       .catch((err) => setDbErr(err.response.data));
+  };
+
+  const removeUser = (userId) => {
+    axios
+      .delete(BASE_URL + `/user?userId=${userId}`)
+      .catch((err) => console.log(err));
   };
 
   const addFavComic = (userId, comicId) => {
@@ -110,7 +109,10 @@ const useDataBase = (URL) => {
     addFavComic,
     addFavCharacter,
     removeFavCharacters,
-    removeFavComics
+    removeFavComics,
+    removeUser,
+    getFavCharacters,
+    getFavComics
   };
 };
 

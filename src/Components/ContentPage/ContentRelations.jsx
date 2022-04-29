@@ -15,7 +15,7 @@ function ContentRelations(props) {
   const relationType = contentType === `comics` ? `characters` : `comics`;
   const { mouseEventHandler, mouseEvent } = useCardManagement(relationType);
 
-  const placeHolderArr = [1, 2, 3, 4, 5];
+  const placeHolderArr = [1, 2, 3];
 
   return (
     <section className="character-comics">

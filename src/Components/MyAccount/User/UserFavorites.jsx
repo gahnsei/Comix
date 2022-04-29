@@ -1,10 +1,13 @@
 import useDataBase from "../../../utils/useDataBase";
 import useCardManagement from "../../../utils/useCardManagement";
 import Card from "../../Cards/Card";
+import PlaceHolder from "../../Cards/PlaceHolder";
 
 function UserFavorites(props) {
   const { contentType, userId } = props;
-  const { dbRes: data } = useDataBase(`/user/${contentType}?userId=${userId}`);
+  const { dbRes: data, loading } = useDataBase(
+    `/user/${contentType}?userId=${userId}`
+  );
   const { mouseEventHandler, mouseEvent } = useCardManagement(contentType);
 
   return (
@@ -13,7 +16,9 @@ function UserFavorites(props) {
         FAVORITE {contentType.toUpperCase()}
       </h1>
       <div className="user-fav-container">
-        {data.length > 0 ? (
+        {loading ? (
+          <PlaceHolder />
+        ) : data.length > 0 ? (
           data.map((ele) => (
             <Card
               key={ele.marvel_id}

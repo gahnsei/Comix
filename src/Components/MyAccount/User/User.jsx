@@ -10,7 +10,7 @@ import UserFavorites from "./UserFavorites";
 function User() {
   const [infoType, setInfoType] = useState(`profile`);
   const navigate = useNavigate();
-  const { userInfo } = useHandleUser();
+  const { userInfo, logoutUser, deleteUser } = useHandleUser();
   const { user_id } = userInfo;
 
   const profileActive = infoType === "profile";
@@ -39,7 +39,11 @@ function User() {
       />
       <div className="user-content">
         {profileActive ? (
-          <UserInfo {...userInfo} />
+          <UserInfo
+            {...userInfo}
+            logoutUser={logoutUser}
+            deleteUser={deleteUser}
+          />
         ) : favComicsActive ? (
           <UserFavorites contentType="comics" userId={userInfo.id} />
         ) : (

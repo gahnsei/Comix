@@ -1,11 +1,19 @@
 import useDataBase from "./useDataBase";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 const useUserData = () => {
   const [user, setUser] = useState({});
   const [userFavs, setUserFavs] = useState([]);
-  const { addFavCharacter, addFavComic, removeFavCharacters, removeFavComics } =
-    useDataBase();
+  const {
+    addFavCharacter,
+    addFavComic,
+    removeFavCharacters,
+    removeFavComics,
+    removeUser
+  } = useDataBase();
+
+  const navigate = useNavigate();
 
   const loginUser = (userInfo) => {
     setUser(userInfo);
@@ -36,13 +44,26 @@ const useUserData = () => {
     }
   };
 
+  const logoutUser = () => {
+    setUser({});
+    document.cookie = `qazxswedc=; expires=Thu, 01 Jan 1970 00:00:00 UTC`;
+    navigate("/");
+  };
+
+  const deleteUser = () => {
+    removeUser(user.id);
+    logoutUser();
+  };
+
   const handleUser = {
     userInfo: { ...user },
     getFavs,
     userFavs,
     loginUser,
     addFavs,
-    removeFavs
+    removeFavs,
+    logoutUser,
+    deleteUser
   };
 
   return handleUser;
