@@ -33,6 +33,7 @@ function Letter(props) {
               {...ele}
               handleEvent={mouseEventHandler}
               isHovered={mouseEvent.hover && mouseEvent.id === ele.id}
+              contentType={type}
             />
           ))}
         </div>

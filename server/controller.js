@@ -69,12 +69,13 @@ const getComics = (req, res) => {
 };
 
 const getCharacter = (req, res) => {
-  const { limit, orderBy, id } = req.query;
+  const { limit, orderBy, id, where } = req.query;
 
   sequelize
     .query(
       `
       SELECT * FROM Characters
+      ${where ? `WHERE ` + where : ``}
       ${id ? `WHERE id = ${+id}` : ``}
       ${orderBy ? `ORDER BY ${orderBy}` : ``}
       ${limit ? `LIMIT ${limit}` : ``};`

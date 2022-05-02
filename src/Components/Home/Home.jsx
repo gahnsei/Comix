@@ -18,7 +18,7 @@ function Home() {
         contentType="comics"
       />
       <Recomendation
-        url="/characters?limit=40&orderBy=marvel_id"
+        url="/characters?where=description NOT IN ('')&limit=40&orderBy=description"
         label="Popular Characters"
         contentType="characters"
       />
