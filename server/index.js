@@ -1,11 +1,16 @@
 require(`dotenv`).config();
 const express = require(`express`);
+const path = require(`path`);
 const cors = require(`cors`);
 const ctrl = require(`./controller`);
 const app = express();
 
+// Midleware
+
 app.use(express.json());
 app.use(cors());
+
+app.use(express.static(path.resolve(__dirname, `../build`)));
 
 // Endpoints
 
@@ -29,6 +34,10 @@ app.post(`/signUp`, ctrl.addUser);
 app.delete(`/user`, ctrl.removeUser);
 app.delete(`/user/characters`, ctrl.removeFavCharacter);
 app.delete(`/user/comics`, ctrl.removeFavComic);
+
+app.get(`/*`, (req, res) => {
+  res.sendFile(path.join(__dirname, `../build`, `index.html`));
+});
 
 const { SERVER_PORT } = process.env;
 
