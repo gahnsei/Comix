@@ -39,8 +39,8 @@ app.get(`/*`, (req, res) => {
   res.sendFile(path.join(__dirname, `../build`, `index.html`));
 });
 
-const { SERVER_PORT } = process.env;
+const { PORT } = process.env;
 
-app.listen(SERVER_PORT, () =>
-  console.log(`Have You Boys Seen My Goyard Garments on ${SERVER_PORT}`)
+app.listen(PORT, () =>
+  console.log(`Have You Boys Seen My Goyard Garments on ${PORT}`)
 );
