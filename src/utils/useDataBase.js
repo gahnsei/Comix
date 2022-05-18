@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useHandleUser } from "./UserContext";
 
-const BASE_URL = `http://localhost:4444`;
+const BASE_URL = `/api`;
 
 const useDataBase = (URL) => {
   const [dbRes, setDbRes] = useState([]);
